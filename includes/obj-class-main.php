@@ -10,6 +10,7 @@ class Obj_Main {
         add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
         add_action( 'woocommerce_before_shop_loop_item_title', array( $this, 'cgd_add_product_heart' ), 15 );
         add_action( 'wp_ajax_favorite_callback', array( $this, 'favorite_callback' ) );
+        add_action( 'wp_ajax_refresh_products_callback', array( $this, 'refresh_products_callback' ) );
         add_shortcode( 'woocommerce_favorites', array( $this, 'favorites_shortcode' ) );
         add_filter( 'body_class', array( $this, 'woo_body_classes' ) );
     }
@@ -111,6 +112,21 @@ class Obj_Main {
 
     }
 
+    /**
+     * Refresh products callback
+     *
+     * @since 1.0
+     */
+    public function refresh_products_callback() {
+        $this->display_product_grid();
+        wp_die();
+    }
+
+    /**
+     * Add Body classes
+     *
+     * @since 1.0
+     */
     function woo_body_classes( $c ) {
 
         global $post;
@@ -122,11 +138,9 @@ class Obj_Main {
     }
 
     /**
-    * Shortcode to display favorites grid
-    *
-    * @since 1.0
-    */
-    public function favorites_shortcode() {
+     * Display products grid
+     */
+    private function display_product_grid() {
         $user_id = get_current_user_id();
         $saved_products = get_user_meta( $user_id, 'saved_products', true );
         $args = array(
@@ -209,6 +223,15 @@ class Obj_Main {
             ?>
         <?php endif; ?>
         <?php
+    }
+
+    /**
+    * Shortcode to display favorites grid
+    *
+    * @since 1.0
+    */
+    public function favorites_shortcode() {
+        $this->display_product_grid();
     }
 
 }

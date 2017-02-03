@@ -1,7 +1,17 @@
 function refreshList() {
-    jQuery.get(window.location, function(data) {
-        var products = jQuery(data).find('ul.products li');
-        jQuery('ul.products').html(products);
+    // jQuery.get(window.location, function(data) {
+    //     var products = jQuery(data).find('ul.products li');
+    //     jQuery('ul.products').html(products);
+    // });
+    jQuery.ajax({
+        url: favorite_data.ajax_url,
+        type: 'post',
+        data: {
+            action: 'refresh_products_callback'
+        },
+        success: function(response) {
+            jQuery('.woocommerce-favorites .entry-content').html(response);
+        }
     });
 }
 
