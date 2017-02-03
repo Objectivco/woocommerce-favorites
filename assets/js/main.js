@@ -1,5 +1,13 @@
+function refreshList() {
+    jQuery.get(window.location, function(data) {
+        var products = jQuery(data).find('ul.products li');
+        jQuery('ul.products').html(products).fadeIn();
+    });
+}
+
 jQuery(document).ready(function() {
     jQuery('.favorite-product > a').on('click', function(e) {
+        console.log('click');
         e.preventDefault();
         var productId = jQuery(this).data('product-id');
         var parentElement = jQuery(this).parent();
@@ -21,10 +29,9 @@ jQuery(document).ready(function() {
                     parentElement.removeClass('is-favoriting');
 
                     if (jQuery('body').hasClass('woocommerce-favorites')) {
-                        parentProduct.fadeOut();
+                        jQuery('ul.products').fadeOut();
+                        refreshList();
                     }
-
-
                 }
             }
         });

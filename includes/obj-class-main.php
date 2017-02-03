@@ -12,7 +12,6 @@ class Obj_Main {
         add_action( 'wp_ajax_favorite_callback', array( $this, 'favorite_callback' ) );
         add_shortcode( 'woocommerce_favorites', array( $this, 'favorites_shortcode' ) );
         add_filter( 'body_class', array( $this, 'woo_body_classes' ) );
-        add_filter( 'loop_shop_columns', array( $this, 'loop_columns' ) );
     }
 
     /**
@@ -99,7 +98,7 @@ class Obj_Main {
         if ( isset( $saved_products[$new_product_id] ) ) {
             unset( $saved_products[$new_product_id] );
             update_user_meta( $user_id, 'saved_products', $saved_products );
-            
+
             echo 0;
             wp_die();
         } else {
@@ -120,10 +119,6 @@ class Obj_Main {
             $c[] = 'woocommerce woocommerce-page woocommerce-favorites';
         }
         return $c;
-    }
-
-    public function loop_columns() {
-        return 4;
     }
 
     /**
