@@ -1,7 +1,7 @@
 function refreshList() {
     jQuery.get(window.location, function(data) {
         var products = jQuery(data).find('ul.products li');
-        jQuery('ul.products').html(products).fadeIn();
+        jQuery('ul.products').html(products);
     });
 }
 
@@ -29,7 +29,6 @@ jQuery(document).ready(function() {
                     parentElement.removeClass('is-favoriting');
 
                     if (jQuery('body').hasClass('woocommerce-favorites')) {
-                        jQuery('ul.products').fadeOut();
                         refreshList();
                     }
                 }
