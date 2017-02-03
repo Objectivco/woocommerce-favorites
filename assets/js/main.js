@@ -1,17 +1,31 @@
 jQuery(document).ready(function() {
     jQuery('.favorite-product > a').on('click', function(e) {
         e.preventDefault();
-        var postId = jQuery(this).data('product-id');
-        console.log(postId);
+        var productId = jQuery(this).data('product-id');
+        var parentElement = jQuery(this).parent();
+        var parentProduct = parentElement.parent();
+        parentElement.addClass('is-favoriting');
         jQuery.ajax({
             url: favorite_data.ajax_url,
             type: 'post',
             data: {
                 action: 'favorite_callback',
-                postId: postId
+                productId: productId
             },
             success: function(response) {
-                console.log(response);
+                if ( response == 1 ) {
+                    parentElement.addClass('is-favorited');
+                    parentElement.removeClass('is-favoriting');
+                } else if ( response == 0 ) {
+                    parentElement.removeClass('is-favorited');
+                    parentElement.removeClass('is-favoriting');
+
+                    if (jQuery('body').hasClass('woocommerce-favorites')) {
+                        parentProduct.fadeOut();
+                    }
+
+
+                }
             }
         });
     });

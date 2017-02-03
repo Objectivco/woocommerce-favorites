@@ -1,0 +1,29 @@
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.favorite-product svg {
+    height: 25px;
+    width: 25px;
+    transition: all 0.2s ease-in-out;
+}
+
+.favorite-product svg > g  {
+    stroke: #008371;
+}
+
+.favorite-product.is-favorited svg > g {
+    fill: #008371;
+}
+
+.favorite-product.is-favoriting {
+    animation: pulse 0.3s infinite;
+}
