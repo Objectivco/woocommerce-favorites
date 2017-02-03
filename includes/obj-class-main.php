@@ -13,6 +13,7 @@ class Obj_Main {
         add_action( 'wp_ajax_refresh_products_callback', array( $this, 'refresh_products_callback' ) );
         add_shortcode( 'woocommerce_favorites', array( $this, 'favorites_shortcode' ) );
         add_filter( 'body_class', array( $this, 'woo_body_classes' ) );
+        add_action( 'wp', array( $this, 'authenticate_user' ) );
     }
 
     /**
@@ -226,12 +227,25 @@ class Obj_Main {
     }
 
     /**
+     * Authenticate user
+     *
+     * @since 1.0
+     */
+    public function authenticate_user() {
+        if ( $this->has_shortcode( 'woocommerce_favorites' ) && ! is_user_logged_in() ) {
+            auth_redirect();
+        }
+    }
+
+    /**
     * Shortcode to display favorites grid
     *
     * @since 1.0
     */
     public function favorites_shortcode() {
+
         $this->display_product_grid();
+
     }
 
 }
