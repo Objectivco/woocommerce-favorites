@@ -10,6 +10,24 @@
     }
 }
 
+.product-title-link,
+.favorite-product {
+    display: inline-block;
+    padding: 25px 0;
+    transition: all $base-duration $base-timing;
+}
+
+.favorite-product {
+    float: right;
+    margin-top: 10px;
+    height: 25px;
+    width: 25px;
+}
+
+.single-product .favorite-product {
+    padding: 0;
+}
+
 .favorite-product svg {
     height: 25px;
     width: 25px;
