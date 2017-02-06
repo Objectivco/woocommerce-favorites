@@ -1,23 +1,12 @@
 function refreshList() {
-    // jQuery.get(window.location, function(data) {
-    //     var products = jQuery(data).find('ul.products li');
-    //     jQuery('ul.products').html(products);
-    // });
-    jQuery.ajax({
-        url: favorite_data.ajax_url,
-        type: 'post',
-        data: {
-            action: 'refresh_products_callback'
-        },
-        success: function(response) {
-            jQuery('.woocommerce-favorites .entry-content').html(response);
-        }
+    jQuery.get(window.location, function(data) {
+        var products = jQuery(data).find('ul.products li');
+        jQuery('ul.products').html(products);
     });
 }
 
 jQuery(document).ready(function() {
-    jQuery('.favorite-product > a').on('click', function(e) {
-        console.log('click');
+    jQuery(document).on('click', '.favorite-product > a', function(e) {
         e.preventDefault();
         var productId = jQuery(this).data('product-id');
         var parentElement = jQuery(this).parent();
