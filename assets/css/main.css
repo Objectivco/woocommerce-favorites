@@ -11,10 +11,10 @@
 }
 
 .product-title-link,
-.favorite-product {
+.products .product .favorite-product {
     display: inline-block;
     padding: 25px 0;
-    transition: all $base-duration $base-timing;
+    transition: all 0.2s ease-in-out;
 }
 
 .favorite-product {
