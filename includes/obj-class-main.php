@@ -101,16 +101,18 @@ class Obj_Main {
         if ( isset( $saved_products[$new_product_id] ) ) {
             unset( $saved_products[$new_product_id] );
             update_user_meta( $user_id, 'saved_products', $saved_products );
-
-            echo 0;
-            wp_die();
+            $result['status'] = 0;
         } else {
             $saved_products[$new_product_id] = $new_product_id;
             update_user_meta( $user_id, 'saved_products', $saved_products );
-
-            echo 1;
-            wp_die();
+            $result['status'] = 1;
         }
+
+        $count = count( $saved_products );
+        $result['count'] = $count;
+
+        echo json_encode( $result );
+        wp_die();
 
     }
 

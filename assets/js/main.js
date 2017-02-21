@@ -17,20 +17,23 @@ jQuery(document).ready(function() {
             type: 'post',
             data: {
                 action: 'favorite_callback',
+                dataType: 'json',
                 productId: productId
             },
             success: function(response) {
-                if ( response == 1 ) {
+                var data = JSON.parse(response);
+                if ( data.status == 1 ) {
                     parentElement.addClass('is-favorited');
                     parentElement.removeClass('is-favoriting');
-                } else if ( response == 0 ) {
+                } else if ( data.status == 0 ) {
                     parentElement.removeClass('is-favorited');
                     parentElement.removeClass('is-favoriting');
-
                     if (jQuery('body').hasClass('woocommerce-favorites')) {
                         refreshList();
                     }
                 }
+
+                jQuery('li.favorites-number').html('<a class="favorites-ajax" href="<?php echo $favorites_url; ?>" itemprop="url"><span itemprop="name">What You Love (' + data.count + ')</span></a>');
             }
         });
     });
